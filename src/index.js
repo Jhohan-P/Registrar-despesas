@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+require('dotenv').config()
 
 const loginRotas = require('./routes/loginRotas');
 const categoriaRotas = require('./routes/categoriaRotas');
@@ -14,4 +15,4 @@ app.use('/categoria', categoriaRotas);
 app.use('/transacao', transacaoRotas);
 app.use('/usuario', usuarioRotas);
 
-app.listen(8000);
+app.listen(process.env.PORT);
