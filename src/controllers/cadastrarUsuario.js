@@ -8,9 +8,9 @@ const cadastrarUsuario = async (req, res) => {
     try {
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-        const novoConta = await knex('usuarios').insert({ nome, email, senha: senhaCriptografada }).returning();
+        const novoConta = await knex('usuarios').insert({ nome, email, senha: senhaCriptografada }).returning(['id', 'nome', 'email']).debug();
 
-        return res.status(201).json({ messagem: 'Conta cadastrada com sucesso' });
+        return res.status(201).json(novoConta[0]);
 
     } catch (error) {
         return res.status(500).json({ "mensagem": error.message });
