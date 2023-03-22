@@ -17,14 +17,15 @@ const verificacaoDoToken = async (req, res, next) => {
         const verificacao = jwt.verify(token, process.env.SENHA_JWT);
         id = verificacao.id
 
-        const { rows, rowCount } = await knex('usuarios').where({ id });
-        if (rowCount < 1) {
+        const dadosUsuario = await knex('usuarios').where({ id });
+        if (dadosUsuario.length < 1) {
             return res.status(401).json({
                 "mensagem": "Para acessar este recurso um token de autenticação válido deve ser enviado."
             });
         };
+        console.log(dadosUsuario);
 
-        const { senha: _, ...usuario } = rows[0];
+        const { senha: _, ...usuario } = dadosUsuario[0];
 
         req.usuario = usuario;
 

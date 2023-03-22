@@ -1,6 +1,7 @@
 const express = require('express');
 const login = require('../controllers/login');
-const { possuiEmail, possuiSenha } = require('../middlewares/validacaoParaCadastro');
+const { possuiEmail, possuiSenha } = require('../middlewares/validacaoParaUsuarios');
+
 
 const rotas = express.Router()
 
