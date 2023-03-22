@@ -1,4 +1,5 @@
 const express = require('express');
+const atualizarUsuario = require('../controllers/atualizarUsuario');
 const cadastrarUsuario = require('../controllers/cadastrarUsuario');
 const detalharUsuario = require('../controllers/detalharUsuario');
 const { possuiNome, possuiEmail, possuiSenha, possuiEmailCadastrado } = require('../middlewares/validacaoParaUsuarios');
@@ -11,6 +12,6 @@ rotas.post('/', possuiNome, possuiEmail, possuiSenha, possuiEmailCadastrado, cad
 
 rotas.get('/', verificacaoDoToken, detalharUsuario)
 // rota para detalhar usuario
-rotas.put('/')
+rotas.put('/', verificacaoDoToken, possuiNome, possuiEmail, possuiSenha, possuiEmailCadastrado, atualizarUsuario)
 
 module.exports = rotas

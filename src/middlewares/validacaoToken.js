@@ -23,7 +23,6 @@ const verificacaoDoToken = async (req, res, next) => {
                 "mensagem": "Para acessar este recurso um token de autenticação válido deve ser enviado."
             });
         };
-        console.log(dadosUsuario);
 
         const { senha: _, ...usuario } = dadosUsuario[0];
 
