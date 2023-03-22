@@ -1,7 +1,6 @@
 const knex = require('../connections/pg')
 const bcrypt = require('bcrypt')
 
-
 const cadastrarUsuario = async (req, res) => {
     const { nome, email, senha } = req.body
 
@@ -15,7 +14,6 @@ const cadastrarUsuario = async (req, res) => {
     } catch (error) {
         return res.status(500).json({ "mensagem": error.message });
     }
-
 };
 
 module.exports = cadastrarUsuario
