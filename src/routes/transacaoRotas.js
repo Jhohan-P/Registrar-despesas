@@ -1,8 +1,10 @@
 const express = require('express');
+const listarTransacaoUsuarioLogado = require('../controllers/listaTransacaoUsuarioLogado');
+const verificacaoDoToken = require('../middlewares/validacaoToken');
 
 const rotas = express.Router()
 
-rotas.get('/')
+rotas.get('/', verificacaoDoToken, listarTransacaoUsuarioLogado)
 // rota de listar transacoes
 rotas.get('/extrato')
 // obter extrato de transacoes
