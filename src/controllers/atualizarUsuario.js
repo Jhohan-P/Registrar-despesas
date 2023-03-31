@@ -1,7 +1,5 @@
-const jwt = require('jsonwebtoken')
 const knex = require('../connections/pg')
 const bcrypt = require('bcrypt')
-
 
 const atualizarUsuario = async (req, res) => {
     const { nome, senha, email } = req.body
@@ -11,7 +9,7 @@ const atualizarUsuario = async (req, res) => {
 
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-        const updateDeDados = await knex('usuarios').update({ nome, email, senha: senhaCriptografada, }).where({ id });
+        const updateDeDados = await knex('usuarios').update({ nome, email, senha: senhaCriptografada }).where({ id });
 
         return res.status(204).send();
 
