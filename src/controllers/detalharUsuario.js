@@ -1,7 +1,3 @@
-const jwt = require('jsonwebtoken')
-const knex = require('../connections/pg')
-const bcrypt = require('bcrypt')
-
 const detalharUsuario = async (req, res) => {
     let usuario = req.usuario
     try {
