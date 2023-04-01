@@ -8,7 +8,6 @@ const atualizarTransacao = async (req, res) => {
     try {
 
         const transacao = await knex('transacoes').where({ id })
-        // const transacao = await knex('select *from transacoes where id =$1 and usuario_id=$2', [id, usuario.id]);
 
         if (transacao.length == 0) {
             return res.status(404).json(
@@ -31,7 +30,6 @@ const atualizarTransacao = async (req, res) => {
         return res.status(200).send();
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({ "messagem": "Erro interno do servidor" });
     };
 };
