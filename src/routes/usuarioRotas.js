@@ -1,17 +1,22 @@
 const express = require('express');
+
 const atualizarUsuario = require('../controllers/atualizarUsuario');
 const cadastrarUsuario = require('../controllers/cadastrarUsuario');
 const detalharUsuario = require('../controllers/detalharUsuario');
-const { possuiNome, possuiEmail, possuiSenha, possuiEmailCadastrado } = require('../middlewares/validacaoParaUsuarios');
+const possuiEmailCadastrado = require('../middlewares/possuiEmailCadastrado');
+const validaRequisicao = require('../middlewares/validacaoRequisicao');
 const verificacaoDoToken = require('../middlewares/validacaoToken');
+const schemaUsuarioCadastro = require('../validcaoSchema/schemaUsuarioCadastro');
 
 const rotas = express.Router()
 
-rotas.post('/', possuiNome, possuiEmail, possuiSenha, possuiEmailCadastrado, cadastrarUsuario)
-// a rota a cima cadastra usuario 
 
-rotas.get('/', verificacaoDoToken, detalharUsuario)
-// rota para detalhar usuario
-rotas.put('/', verificacaoDoToken, possuiNome, possuiEmail, possuiSenha, possuiEmailCadastrado, atualizarUsuario)
+rotas.post('/', validaRequisicao(schemaUsuarioCadastro), possuiEmailCadastrado, cadastrarUsuario)
+
+rotas.use(verificacaoDoToken)
+
+rotas.get('/', detalharUsuario)
+
+rotas.put('/', validaRequisicao(schemaUsuarioCadastro), possuiEmailCadastrado, atualizarUsuario)
 
 module.exports = rotas

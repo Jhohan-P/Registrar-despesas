@@ -1,20 +1,29 @@
 const express = require('express');
+const atualizarTransacao = require('../controllers/atualizarTransacao');
+const atualizarUsuario = require('../controllers/atualizarUsuario');
+const cadastrarTransacao = require('../controllers/cadastrarTransacao');
+const deletarTransacao = require('../controllers/deletarTransacao');
+const detalharTransacao = require('../controllers/detalharTrasacao');
 const listarTransacaoUsuarioLogado = require('../controllers/listaTransacaoUsuarioLogado');
+const validaRequisicao = require('../middlewares/validacaoRequisicao');
 const verificacaoDoToken = require('../middlewares/validacaoToken');
+const { validarCategoria } = require('../middlewares/validacaoTransacoes');
+const schemaTransacao = require('../validcaoSchema/shemaTransacao');
 
 const rotas = express.Router()
 
-rotas.get('/', verificacaoDoToken, listarTransacaoUsuarioLogado)
-// rota de listar transacoes
+rotas.use(verificacaoDoToken)
+
+rotas.get('/', listarTransacaoUsuarioLogado)
+
 rotas.get('/extrato')
-// obter extrato de transacoes
-rotas.get('/:id')
-// rota detalhar uma transacao do usuario logado
-rotas.post('/')
-// cadastrar transacao para o usuario logado
-rotas.put('/:id')
-// atualizar transacao do usuario logado
-rotas.delete('/:id')
-// excluir transacao do usuario logado
+
+rotas.get('/:id', detalharTransacao)
+
+rotas.post('/', validaRequisicao(schemaTransacao), cadastrarTransacao)
+
+rotas.put('/:id', validaRequisicao(schemaTransacao), validarCategoria, atualizarTransacao)
+
+rotas.delete('/:id', deletarTransacao)
 
 module.exports = rotas

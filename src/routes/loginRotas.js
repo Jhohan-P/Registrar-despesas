@@ -1,11 +1,11 @@
 const express = require('express');
 const login = require('../controllers/login');
-const { possuiEmail, possuiSenha } = require('../middlewares/validacaoParaUsuarios');
+const validaRequisicao = require('../middlewares/validacaoRequisicao');
+const schemaLogin = require('../validcaoSchema/schemaUsuarioLogin');
 
 
 const rotas = express.Router()
 
-
-rotas.post('/', possuiEmail, possuiSenha, login)
+rotas.post('/', validaRequisicao(schemaLogin), login)
 
 module.exports = rotas
