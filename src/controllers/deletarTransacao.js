@@ -7,7 +7,7 @@ const deletarTransacao = async (req, res) => {
     try {
         const deletarTransacao = await knex('transacoes').where({ id, usuario_id: usuario.id }).del()
 
-        if (deletarTransacao.length == 0) {
+        if (!deletarTransacao) {
             return res.status(404).json(
                 {
                     "mensagem": "Transação não encontrada."

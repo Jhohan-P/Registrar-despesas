@@ -4,6 +4,7 @@ const atualizarUsuario = require('../controllers/atualizarUsuario');
 const cadastrarTransacao = require('../controllers/cadastrarTransacao');
 const deletarTransacao = require('../controllers/deletarTransacao');
 const detalharTransacao = require('../controllers/detalharTrasacao');
+const extrato = require('../controllers/extrato');
 const listarTransacaoUsuarioLogado = require('../controllers/listaTransacaoUsuarioLogado');
 const validaRequisicao = require('../middlewares/validacaoRequisicao');
 const verificacaoDoToken = require('../middlewares/validacaoToken');
@@ -16,7 +17,7 @@ rotas.use(verificacaoDoToken)
 
 rotas.get('/', listarTransacaoUsuarioLogado)
 
-rotas.get('/extrato')
+rotas.get('/extrato', extrato)
 
 rotas.get('/:id', detalharTransacao)
 

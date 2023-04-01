@@ -7,7 +7,7 @@ const cadastrarUsuario = async (req, res) => {
     try {
         const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-        const novoConta = await knex('usuarios').insert({ nome, email, senha: senhaCriptografada }).returning(['id', 'nome', 'email']).debug();
+        const novoConta = await knex('usuarios').insert({ nome, email, senha: senhaCriptografada }).returning(['id', 'nome', 'email']);
 
         return res.status(201).json(novoConta[0]);
 

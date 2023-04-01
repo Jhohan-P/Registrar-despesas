@@ -14,7 +14,7 @@ const detalharTransacao = async (req, res) => {
             .andWhere('t.usuario_id', '=', usuario.id)
             .first();
 
-        if (detalharTransferencia.rows == 0) {
+        if (!detalharTransferencia) {
             return res.status(404).json(
                 {
                     "mensagem": "Transação não encontrada."
@@ -25,6 +25,7 @@ const detalharTransacao = async (req, res) => {
         return res.json(detalharTransferencia);
 
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ "messagem": "Erro interno do servidor" });
     };
 };
